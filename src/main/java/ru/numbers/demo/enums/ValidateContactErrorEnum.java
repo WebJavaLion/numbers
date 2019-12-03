@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public enum ValidateContactErrorEnum {
 
-    INVALID_CONTACT_NUMBER("Phone number should contain only numerals or '+', max length 12."),
+    INVALID_CONTACT_NUMBER("Phone number should contain only numerals or '+' and can't be empty, max length 12."),
     INVALID_CONTACT_NAME("Name shouldn't be empty.");
 
     private String value;

@@ -62,8 +62,8 @@ class UserServiceTest {
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
                 () -> userService.createUser(user, errors)
         );
-        assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
-        assertEquals("404 NOT_FOUND \"user with such email already exists\"", exception.getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+        assertEquals("400 BAD_REQUEST \"user with such email already exists\"", exception.getMessage());
     }
 
     @Test
@@ -91,7 +91,6 @@ class UserServiceTest {
 
         Mockito.verify(userRepository, Mockito.times(1)).deleteUserById(user.getId());
         Mockito.verify(userRepository, Mockito.times(1)).findById(user.getId());
-
     }
 
     @Test
@@ -154,7 +153,7 @@ class UserServiceTest {
         Mockito.verify(userSpy, Mockito.never()).setId(Mockito.anyLong());
         Mockito.verify(userSpy, Mockito.never()).setPhoneBook(Mockito.any());
 
-        assertEquals("404 NOT_FOUND \"User with such email already exists\"", emailException.getMessage());
+        assertEquals("400 BAD_REQUEST \"User with such email already exists\"", emailException.getMessage());
 
         Mockito.when(userRepository.findUserByEmail("example@test.com")).thenReturn(Optional.empty());
 

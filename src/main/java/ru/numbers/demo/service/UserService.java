@@ -42,6 +42,13 @@ public class UserService {
     public User createUser(User user, List<String> errors) {
 
         validateUser(user, errors);
+
+        PhoneBook phoneBook = new PhoneBook();
+
+        phoneBook.setDateOfCreation(new Timestamp(new Date().getTime()));
+        phoneBook.setUser(user);
+
+        user.setPhoneBook(phoneBook);
         return userRepository.save(user);
     }
 
@@ -55,17 +62,10 @@ public class UserService {
     private void validateUser(User user, List<String> errors) {
 
         if (userRepository.findUserByEmail(user.getEmail()).isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user with such email already exists");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "user with such email already exists");
         }
 
         validateFields(errors);
-
-        PhoneBook phoneBook = new PhoneBook();
-
-        phoneBook.setDateOfCreation(new Timestamp(new Date().getTime()));
-        phoneBook.setUser(user);
-
-        user.setPhoneBook(phoneBook);
     }
 
     public boolean deleteUserById(Long id) {
@@ -84,7 +84,7 @@ public class UserService {
 
         Optional<User> userPresent = userRepository.findUserByEmail(user.getEmail());
         if (userPresent.isPresent() && !userPresent.get().getId().equals(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with such email already exists");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with such email already exists");
         }
 
         Optional<User> userOptional = userRepository.findById(id);

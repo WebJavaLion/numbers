@@ -2,15 +2,12 @@ package ru.numbers.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.numbers.demo.entitiy.Contact;
-import ru.numbers.demo.enums.ValidateContactErrorEnum;
 import ru.numbers.demo.exception.ValidateException;
 import ru.numbers.demo.repository.ContactRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,12 +45,14 @@ public class ContactService {
         }
 
     }
+
     private void validateContact(List<String> errors) {
 
         if (!errors.isEmpty()) {
             throw new ValidateException(errors);
         }
     }
+
     public List<Contact> getContactByNumber(String number) {
         return repository.findContactByNumber(number);
     }
@@ -67,7 +66,5 @@ public class ContactService {
        } else {
            return false;
        }
-
-
     }
 }
