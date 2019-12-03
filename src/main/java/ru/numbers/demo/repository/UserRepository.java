@@ -2,6 +2,7 @@ package ru.numbers.demo.repository;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findUserByEmailAndPassword(String email, String password);
     List<User> findUsersByNameIsContaining (String name, Sort sort);
 
+    @Modifying
     @Query("delete from User u where u.id = :id")
     void deleteUserById(@Param("id") Long id);
 
