@@ -1,6 +1,6 @@
 # numbers
 Запуск: создать maven билд, собрать проект (clean install), запустить готовый jar (java -jar jarname.jar).
-Или создать spring boot билд с указанием main метода и запустить через IDE.
+Или создать spring boot билд с указанием класса с main методом и запустить через IDE.
 Запуск тестов: выполнить maven goal (clean test) или запускать через тест классы.
 
 Зпросы к api: все запросы по localhost:12001/app. Для user - get (для получения списка юзеров), post: /users.  
