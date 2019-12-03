@@ -58,9 +58,6 @@ public class ContactService {
         return repository.findContactByNumber(number);
     }
 
-    private boolean selectContactCase (Long id) {
-        return repository.selectContactCase(id);
-    }
     public boolean deleteById(Long id) {
        Optional<Contact> contactOptional = repository.findById(id);
 
